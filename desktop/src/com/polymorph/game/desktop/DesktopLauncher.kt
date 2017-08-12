@@ -15,9 +15,11 @@ object DesktopLauncher {
         val config = LwjglApplicationConfiguration().apply {
 
         }
-        val frame = LwjglFrame(PolymorphGame, config)
-        frame.defaultCloseOperation = WindowConstants.DO_NOTHING_ON_CLOSE
-        frame.addWindowListener(DesktopFrameListener)
+        val frame = LwjglFrame(PolymorphGame, config).apply {
+            defaultCloseOperation = WindowConstants.DO_NOTHING_ON_CLOSE
+            addWindowListener(DesktopFrameListener)
+            maximize()
+        }
     }
 }
 
