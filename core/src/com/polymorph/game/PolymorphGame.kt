@@ -21,7 +21,7 @@ object PolymorphGame : KotlinApplication() {
     private val sprite: Sprite by lazy { Sprite(img) }
 
     override fun create() {
-        this.viewport.apply()
+        viewport.apply()
         camera.position.set(0f, 0f, 0f)
 
         sprite.setPosition(0f, 0f)

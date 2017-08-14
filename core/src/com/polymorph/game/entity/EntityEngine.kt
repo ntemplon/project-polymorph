@@ -34,10 +34,12 @@ object EntityEngine {
     object Families {
         val id: Family = Family.all(IdComponent::class.java).get()
         val attribute: Family = Family.all(AttributeComponent::class.java).get()
+        val collision: Family = Family.all(CollisionComponent::class.java).get()
     }
 
     object Mappers {
         val id: ComponentMapper<IdComponent> = ComponentMapper.getFor(IdComponent::class.java)
         val attribute: ComponentMapper<AttributeComponent> = ComponentMapper.getFor(AttributeComponent::class.java)
+        val collision: ComponentMapper<CollisionComponent> = ComponentMapper.getFor(CollisionComponent::class.java)
     }
 }
