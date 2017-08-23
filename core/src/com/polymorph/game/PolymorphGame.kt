@@ -14,6 +14,8 @@ import ktx.app.KotlinApplication
 
 object PolymorphGame : KotlinApplication() {
 
+    val GAME_NAME: String = "Project Polymorph"
+
     private val camera: OrthographicCamera by lazy { OrthographicCamera() }
     private val viewport: Viewport by lazy { ScreenViewport(this.camera) }
     private val batch: SpriteBatch by lazy { SpriteBatch() }
