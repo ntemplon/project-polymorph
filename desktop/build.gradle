@@ -6,7 +6,9 @@ sourceSets.main.java.srcDirs = [ "src/" ]
 sourceSets.main.kotlin.srcDirs = [ "src/" ]
 
 project.ext.mainClassName = "com.polymorph.game.desktop.DesktopLauncher"
-project.ext.assetsDir = new File("../core/assets");
+project.ext.assetsDir = new File("../core/data")
+project.ext.distDir = new File("./build/libs")
+project.ext.distAssetsDir = new File("./build/libs/data")
 
 kotlin {
     experimental {
@@ -31,11 +33,25 @@ task debug(dependsOn: classes, type: JavaExec) {
     debug = true
 }
 
+task tidy(type: Delete) {
+    delete project.ext.distAssetsDir.toString()
+}
+
+task copyData(type: Copy) {
+    from files(project.assetsDir)
+    into project.distAssetsDir
+}
+
+//copyData.dependsOn tidy
+
 task dist(type: Jar) {
+    baseName = "ProjectPolymorph"
+    classifier = "Alpha"
+    version = 0.1
+
     from files(sourceSets.main.output.classesDir)
     from files(sourceSets.main.output.resourcesDir)
     from {configurations.compile.collect {zipTree(it)}}
-    from files(project.assetsDir);
  
     manifest {
         attributes 'Main-Class': project.mainClassName
@@ -43,6 +59,7 @@ task dist(type: Jar) {
 }
 
 dist.dependsOn classes
+dist.dependsOn copyData
 
 eclipse {
     project {
