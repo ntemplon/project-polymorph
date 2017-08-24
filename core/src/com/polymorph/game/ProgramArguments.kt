@@ -1,9 +1,4 @@
-package com.polymorph.game.desktop
-
-import com.polymorph.game.ProgramArguments
-import org.apache.commons.cli.DefaultParser
-import org.apache.commons.cli.Option
-import org.apache.commons.cli.Options
+package com.polymorph.game
 
 /**
  * Copyright (c) 2017 Nathan S. Templon
@@ -22,24 +17,7 @@ import org.apache.commons.cli.Options
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  */
-object DesktopArgumentProcessor {
-    val debugOption: Option = Option("debug", "output debug information in the log")
-    val dataOption: Option = Option("data", true, "specify a filepath for the data directory relative to the working folder")
-    val options: Options = options {
-        addOption(debugOption)
-        addOption(dataOption)
-    }
-
-    fun process(args: Array<String>): ProgramArguments {
-        val parser = DefaultParser()
-        val cl = parser.parse(options, args)
-
-        val debug = cl.hasOption(debugOption.opt)
-        val useData = cl.hasOption(dataOption.opt)
-        val dataDir = if(useData) cl.getOptionValue(dataOption.opt) else ""
-
-        return ProgramArguments(debug = debug, useCustomDataDirectory = useData, dataDirectory = dataDir)
-    }
-}
-
-fun options(op: Options.() -> Unit): Options = Options().apply(op)
+data class ProgramArguments(
+        val debug: Boolean = false,
+        val useCustomDataDirectory: Boolean = false,
+        val dataDirectory: String = "")

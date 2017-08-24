@@ -22,6 +22,7 @@ task run(dependsOn: classes, type: JavaExec) {
     standardInput = System.in
     workingDir = project.assetsDir
     ignoreExitValue = true
+    args '-data', '.'
 }
 
 task debug(dependsOn: classes, type: JavaExec) {
