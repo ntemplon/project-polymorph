@@ -13,12 +13,12 @@ object FileLocations {
         val folderPath = jarPath.parent
         val directDataPath = folderPath.resolve("data")
 
-        if (directDataPath.exists()) {
+        return if (directDataPath.exists) {
             // We are deployed
-            return directDataPath
+            directDataPath
         } else {
             // We are in the editor
-            return folderPath.resolve("../../data")
+            folderPath.resolve("../../data")
         }
     }
 }

@@ -25,6 +25,7 @@ allprojects {
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
+        apacheIoVersion = '2.5'
     }
 
     repositories {
@@ -60,6 +61,8 @@ project(":desktop") {
         compile "io.github.libktx:ktx-actors:$ktx_version"
         compile "io.github.libktx:ktx-vis:$ktx_version"
         compile "io.github.libktx:ktx-vis-style:$ktx_version"
+
+        compile group: 'commons-io', name: 'commons-io', version: apacheIoVersion
     }
 }
 
@@ -87,6 +90,8 @@ project(":core") {
         compile "io.github.libktx:ktx-actors:$ktx_version"
         compile "io.github.libktx:ktx-vis:$ktx_version"
         compile "io.github.libktx:ktx-vis-style:$ktx_version"
+
+        compile group: 'commons-io', name: 'commons-io', version: apacheIoVersion
     }
 }
 
