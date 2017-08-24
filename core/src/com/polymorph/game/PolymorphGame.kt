@@ -25,7 +25,7 @@ object PolymorphGame : KotlinApplication() {
     private val camera: OrthographicCamera by lazy { OrthographicCamera() }
     private val viewport: Viewport by lazy { ScreenViewport(this.camera) }
     private val batch: SpriteBatch by lazy { SpriteBatch() }
-    private val img: Texture by lazy { Texture(FileHandle(FileLocations.DataDirectory.resolve("badlogic.jpg").toFile())) }
+    private val img: Texture by lazy { Texture(FileHandle(FileLocations.DataDirectory.resolve("blue_bandito_256.png").toFile())) }
     private val sprite: Sprite by lazy { Sprite(img) }
 
     override fun create() {
