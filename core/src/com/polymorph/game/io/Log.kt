@@ -43,15 +43,39 @@ object Log {
 
     private val logger = LogManager.getLogger()
 
-    fun info(message: () -> String) {
+    fun warn(message: () -> Any) {
+        if (logger.isWarnEnabled) {
+            logger.warn(message.invoke())
+        }
+    }
+
+    fun warn(message: Any) {
+        if (logger.isWarnEnabled) {
+            logger.warn(message)
+        }
+    }
+
+    fun info(message: () -> Any) {
         if (logger.isInfoEnabled) {
             logger.info(message.invoke())
         }
     }
 
-    fun info(message: String) {
+    fun info(message: Any) {
         if (logger.isInfoEnabled) {
             logger.info(message)
+        }
+    }
+
+    fun debug(message: () -> Any) {
+        if (logger.isDebugEnabled) {
+            logger.debug(message.invoke())
+        }
+    }
+
+    fun debug(message: Any) {
+        if (logger.isDebugEnabled) {
+            logger.debug(message)
         }
     }
 
