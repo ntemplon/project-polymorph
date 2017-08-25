@@ -1,6 +1,7 @@
 package com.polymorph.game.desktop
 
 import com.polymorph.game.ProgramArguments
+import com.polymorph.game.io.FileLocations
 import org.apache.commons.cli.DefaultParser
 import org.apache.commons.cli.Option
 import org.apache.commons.cli.Options
@@ -24,10 +25,10 @@ import org.apache.commons.cli.Options
  */
 object DesktopArgumentProcessor {
     val debugOption: Option = Option("debug", "output debug information in the log")
-    val dataOption: Option = Option("data", true, "specify a filepath for the data directory relative to the working folder")
+    val rootFolderOption: Option = Option("root", true, "specify a filepath for the root directory relative to the working folder")
     val options: Options = options {
         addOption(debugOption)
-        addOption(dataOption)
+        addOption(rootFolderOption)
     }
 
     fun process(args: Array<String>): ProgramArguments {
@@ -35,10 +36,10 @@ object DesktopArgumentProcessor {
         val cl = parser.parse(options, args)
 
         val debug = cl.hasOption(debugOption.opt)
-        val useData = cl.hasOption(dataOption.opt)
-        val dataDir = if(useData) cl.getOptionValue(dataOption.opt) else ""
+        val useRoot = cl.hasOption(rootFolderOption.opt)
+        val rootDir = if(useRoot) cl.getOptionValue(rootFolderOption.opt) else ""
 
-        return ProgramArguments(debug = debug, useCustomDataDirectory = useData, dataDirectory = dataDir)
+        return ProgramArguments(debug = debug, useCustomRootDirectory = useRoot, rootDirectory = rootDir)
     }
 }
 

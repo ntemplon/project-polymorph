@@ -1,6 +1,5 @@
 package com.polymorph.game
 
-import com.badlogic.gdx.Files
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.graphics.Color
@@ -23,7 +22,7 @@ object PolymorphGame : KotlinApplication() {
     private val camera: OrthographicCamera by lazy { OrthographicCamera() }
     private val viewport: Viewport by lazy { ScreenViewport(this.camera) }
     private val batch: SpriteBatch by lazy { SpriteBatch() }
-    private val img: Texture by lazy { Texture(FileHandle(FileLocations.DataDirectory.resolve("blue_bandito_256.png").toFile())) }
+    private val img: Texture by lazy { Texture(FileHandle(FileLocations.dataDirectory.resolve("blue_bandito_256.png").toFile())) }
     private val sprite: Sprite by lazy { Sprite(img) }
 
     val assets: PolymorphAssetManager = PolymorphAssetManager()

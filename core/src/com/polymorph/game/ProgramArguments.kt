@@ -19,5 +19,5 @@ package com.polymorph.game
  */
 data class ProgramArguments(
         val debug: Boolean = false,
-        val useCustomDataDirectory: Boolean = false,
-        val dataDirectory: String = "")
+        val useCustomRootDirectory: Boolean = false,
+        val rootDirectory: String = "")

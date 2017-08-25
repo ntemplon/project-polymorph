@@ -1,18 +1,12 @@
 package com.polymorph.game.desktop
 
-import com.badlogic.gdx.Files
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
 import com.badlogic.gdx.backends.lwjgl.LwjglFrame
 import com.polymorph.game.PolymorphGame
 import com.polymorph.game.io.FileLocations
-import com.polymorph.game.io.Logging
-import org.apache.logging.log4j.Level
-import org.apache.logging.log4j.LogManager
+import com.polymorph.game.io.Log
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
-import java.nio.file.Path
-import java.nio.file.Paths
 import javax.swing.ImageIcon
 import javax.swing.WindowConstants
 
@@ -20,6 +14,7 @@ object DesktopLauncher {
     @JvmStatic fun main(arg: Array<String>) {
         val args = DesktopArgumentProcessor.process(arg)
         PolymorphGame.arguments = args
+        Log.info { args.toString() }
 
         val config = LwjglApplicationConfiguration().apply {
             title = PolymorphGame.GAME_NAME
@@ -27,11 +22,12 @@ object DesktopLauncher {
         }
         val frame = LwjglFrame(PolymorphGame, config).apply {
             defaultCloseOperation = WindowConstants.DO_NOTHING_ON_CLOSE
-            iconImage = ImageIcon(FileLocations.DataDirectory.resolve("blue_bandito_64.png").toUri().toURL()).image
+            iconImage = ImageIcon(FileLocations.dataDirectory.resolve("blue_bandito_64.png").toUri().toURL()).image
             addWindowListener(DesktopFrameListener)
             maximize()
         }
-        println(Logging.toString())
+
+        Log.info { "Root directory: ${FileLocations.rootDirectory.toAbsolutePath()}" }
     }
 }
 

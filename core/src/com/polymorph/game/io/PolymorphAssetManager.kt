@@ -6,7 +6,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.maps.tiled.TmxMapLoader
 import org.apache.commons.io.FilenameUtils
 import java.nio.file.Path
-import kotlin.reflect.jvm.internal.impl.load.java.structure.JavaClass
 
 class PolymorphAssetManager: AssetManager() {
 
@@ -18,7 +17,7 @@ class PolymorphAssetManager: AssetManager() {
     }
 
     fun loadInternalFiles() {
-        loadResourcesRecursive(FileLocations.DataDirectory)
+        loadResourcesRecursive(FileLocations.dataDirectory)
     }
 
     fun <T> load(file: Path, type: Class<T>) {

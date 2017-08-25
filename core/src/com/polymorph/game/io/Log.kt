@@ -35,7 +35,25 @@ import org.apache.logging.log4j.core.config.plugins.Plugin
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  */
-object Logging {
+object Log {
+
+    init {
+        ConfigurationFactory.setConfigurationFactory(LogConfigurationFactory)
+    }
+
+    private val logger = LogManager.getLogger()
+
+    fun info(message: () -> String) {
+        if (logger.isInfoEnabled) {
+            logger.info(message.invoke())
+        }
+    }
+
+    fun info(message: String) {
+        if (logger.isInfoEnabled) {
+            logger.info(message)
+        }
+    }
 
     object LogConfigurationFactory : ConfigurationFactory() {
         private fun createConfiguration(name: String, builder: ConfigurationBuilder<BuiltConfiguration>): Configuration {
@@ -48,14 +66,14 @@ object Logging {
             appenderBuilder.add(builder.newFilter("MarkerFilter", Filter.Result.DENY,
                     Filter.Result.NEUTRAL).addAttribute("marker", "FLOW"))
 
-            val fileAppenderBuilder = builder.newAppender("fileout", "File").addAttribute("fileName", "../log.txt").addAttribute("append", false)
+            val fileAppenderBuilder = builder.newAppender("fileout", "File").addAttribute("fileName", FileLocations.rootDirectory.resolve("ProjectPolymorph.log").toString()).addAttribute("append", false)
             fileAppenderBuilder.add(builder.newLayout("PatternLayout").addAttribute("pattern", "%d [%t] %-5level: %msg%n%throwable"))
             fileAppenderBuilder.add(builder.newFilter("MarkerFilter", Filter.Result.DENY, Filter.Result.NEUTRAL).addAttribute("marker", "FLOW"))
 
             builder.add(appenderBuilder)
             builder.add(fileAppenderBuilder)
             builder.add(builder.newLogger("com.polymorph.game", Level.DEBUG).add(builder.newAppenderRef("fileout")).addAttribute("additivity", false))
-            builder.add(builder.newRootLogger(Level.ERROR).add(builder.newAppenderRef("Stdout")))
+            builder.add(builder.newRootLogger(Level.ERROR).add(builder.newAppenderRef("fileout")))
             return builder.build()
         }
 
@@ -71,11 +89,5 @@ object Logging {
         override fun getSupportedTypes(): Array<String> {
             return arrayOf("*")
         }
-    }
-
-    init {
-        ConfigurationFactory.setConfigurationFactory(LogConfigurationFactory)
-        val logger = LogManager.getLogger()
-        logger.info("Hello World!")
     }
 }
