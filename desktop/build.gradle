@@ -22,7 +22,7 @@ task run(dependsOn: classes, type: JavaExec) {
     standardInput = System.in
     workingDir = project.assetsDir
     ignoreExitValue = true
-    args '-root', '../'
+    args '-root', '../', '-logLevel', 'ALL'
 }
 
 task debug(dependsOn: classes, type: JavaExec) {

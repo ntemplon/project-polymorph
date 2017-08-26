@@ -1,6 +1,8 @@
 package com.polymorph.game.desktop
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationLogger
 import com.badlogic.gdx.backends.lwjgl.LwjglFrame
 import com.polymorph.game.PolymorphGame
 import com.polymorph.game.io.FileLocations
@@ -14,6 +16,7 @@ object DesktopLauncher {
     @JvmStatic fun main(arg: Array<String>) {
         val args = DesktopArgumentProcessor.process(arg)
         PolymorphGame.arguments = args
+
         Log.info { args.toString() }
 
         val config = LwjglApplicationConfiguration().apply {
@@ -26,6 +29,7 @@ object DesktopLauncher {
             addWindowListener(DesktopFrameListener)
             maximize()
         }
+        Gdx.app.applicationLogger = Log.GdxLogger
 
         Log.info { "Root directory: ${FileLocations.rootDirectory.toAbsolutePath()}" }
     }

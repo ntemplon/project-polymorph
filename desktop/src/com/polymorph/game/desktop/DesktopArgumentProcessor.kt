@@ -1,10 +1,10 @@
 package com.polymorph.game.desktop
 
 import com.polymorph.game.ProgramArguments
-import com.polymorph.game.io.FileLocations
 import org.apache.commons.cli.DefaultParser
 import org.apache.commons.cli.Option
 import org.apache.commons.cli.Options
+import org.apache.logging.log4j.Level
 
 /**
  * Copyright (c) 2017 Nathan S. Templon
@@ -24,11 +24,13 @@ import org.apache.commons.cli.Options
  * IN THE SOFTWARE.
  */
 object DesktopArgumentProcessor {
-    val debugOption: Option = Option("debug", "output debug information in the log")
-    val rootFolderOption: Option = Option("root", true, "specify a filepath for the root directory relative to the working folder")
-    val options: Options = options {
+    private val debugOption: Option = Option("debug", "output debug information in the log")
+    private val rootFolderOption: Option = Option("root", true, "specify a filepath for the root directory relative to the working folder")
+    private val logLevelOption: Option = Option("logLevel", true, "specify the level of message to log in this instance")
+    private val options: Options = options {
         addOption(debugOption)
         addOption(rootFolderOption)
+        addOption(logLevelOption)
     }
 
     fun process(args: Array<String>): ProgramArguments {
@@ -37,9 +39,16 @@ object DesktopArgumentProcessor {
 
         val debug = cl.hasOption(debugOption.opt)
         val useRoot = cl.hasOption(rootFolderOption.opt)
-        val rootDir = if(useRoot) cl.getOptionValue(rootFolderOption.opt) else ""
+        val rootDir = if(useRoot) cl.getOptionValue(rootFolderOption.opt) else ProgramArguments.ROOT_DIRECTORY_DEFAULT
+        val useLogLevel: Boolean = cl.hasOption(logLevelOption.opt)
+        val logLevel: Level = if(useLogLevel) Level.valueOf(cl.getOptionValue(logLevelOption.opt)) else ProgramArguments.LOG_LEVEL_DEFAULT
 
-        return ProgramArguments(debug = debug, useCustomRootDirectory = useRoot, rootDirectory = rootDir)
+        return ProgramArguments(
+                debug = debug,
+                useCustomRootDirectory = useRoot,
+                rootDirectory = rootDir,
+                useCustomLogLevel = useLogLevel,
+                logLevel = logLevel)
     }
 }
 

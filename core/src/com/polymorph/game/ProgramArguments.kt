@@ -1,5 +1,7 @@
 package com.polymorph.game
 
+import org.apache.logging.log4j.Level
+
 /**
  * Copyright (c) 2017 Nathan S. Templon
  *
@@ -18,6 +20,17 @@ package com.polymorph.game
  * IN THE SOFTWARE.
  */
 data class ProgramArguments(
-        val debug: Boolean = false,
-        val useCustomRootDirectory: Boolean = false,
-        val rootDirectory: String = "")
+        val debug: Boolean = DEFAULT_DEBUG,
+        val useCustomRootDirectory: Boolean = USE_CUSTOM_ROOT_DIRECTORY_DEFAULT,
+        val rootDirectory: String = ROOT_DIRECTORY_DEFAULT,
+        val useCustomLogLevel: Boolean = USE_CUSTOM_LOG_LEVEL_DEFAULT,
+        val logLevel: Level = LOG_LEVEL_DEFAULT) {
+
+    companion object {
+        val DEFAULT_DEBUG: Boolean = false
+        val USE_CUSTOM_ROOT_DIRECTORY_DEFAULT: Boolean = false
+        val ROOT_DIRECTORY_DEFAULT: String = ""
+        val USE_CUSTOM_LOG_LEVEL_DEFAULT: Boolean = false
+        val LOG_LEVEL_DEFAULT: Level = Level.WARN
+    }
+}
