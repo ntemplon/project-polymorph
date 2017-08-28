@@ -53,3 +53,10 @@ object DesktopArgumentProcessor {
 }
 
 fun options(op: Options.() -> Unit): Options = Options().apply(op)
+fun optionsOf(vararg options: Option): Options {
+    val collection = Options()
+    for(opt in options) {
+        collection.addOption(opt)
+    }
+    return collection
+}
